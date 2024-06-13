@@ -1,0 +1,32 @@
+Contact-programmed ROM cells for sky130
+---------------------------------------
+
+Every circuit layout in this repository has been hand drawn so that all
+conb_1 cells are oriented in the same direction.  For each bit, the
+cell is programmed by default to zero (LO) and can be changed to one
+(HI) by moving the "mcon" contact from the right side to the left side
+by 0.69um, or 138 internal units.  All contacts are listed in the .mag layout
+file in order from left to right.  This is the order of bits low to high
+except for the 32 bit project I.D., which alternates bits between bottom
+and top.  The low bit is on the bottom left of the layout, and the high
+bit is on the top right.
+
+For example:  To program bit 0 (low bit) of the product I.D. to value "1",
+change the 1st mcon entry in the file "product_id_rom_8bit.mag" from
+
+	rect 557 765 591 799
+to
+	rect 419 765 453 799
+
+(subtracting 138 from the 1st and 3rd values, which are the lower X
+value and the upper X value, respectively).
+
+Warning:  The .mag files in this directory are hand-edited and cannot
+be produced directly from magic, because normally in a .mag file, the
+contact and the metal underneath it are mutually exclusive, so moving
+the contact will create a hole in the metal.
+
+To create a non-default programmed ROM, the cell should be copied to
+a new file with a value-specific cell name, the contact positions
+changed, and then the cell can be used in a layout to produce GDS
+output.
